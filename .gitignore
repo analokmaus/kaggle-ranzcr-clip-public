@@ -12,10 +12,7 @@ catboost_info/
 
 # Project
 checkpoints/
-results/**/*.pt
-results/**/*.pth
-results/**/*.csv
-results/**/*.npy
+results/*
 input/
 requirements/
 kaggle/
