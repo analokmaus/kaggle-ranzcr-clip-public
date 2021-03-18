@@ -1,0 +1,24 @@
+# General
+nohup.out
+.DS_Store
+.vscode/
+
+# Python-related
+.ipynb_checkpoints/
+__pycache__/
+
+# Package specific
+catboost_info/
+
+# Project
+checkpoints/
+results/**/*.pt
+results/**/*.pth
+results/**/*.csv
+results/**/*.npy
+input/
+requirements/
+kaggle/
+logs/
+run.sh
+.ku_ddp_tmp*

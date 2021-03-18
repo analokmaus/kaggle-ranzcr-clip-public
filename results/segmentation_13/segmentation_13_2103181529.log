@@ -1,0 +1,114 @@
+TorchLogger created at 21/03/18 15:29:21
+15:29:21 ===== CONFIG =====
+15:29:21 name: segmentation_13
+15:29:21 pretrain_name: None
+15:29:21 cv: 5
+15:29:21 num_epochs: 15
+15:29:21 batch_size: 48
+15:29:21 seed: 2021
+15:29:21 dataset: CLiPDatasetSegmentation(*)
+15:29:21 dataset_params: 
+{ 'annotation_size': 60,
+  'annotation_style': 'line',
+  'cmap': { 'CVC - Abnormal': 2,
+            'CVC - Borderline': 2,
+            'CVC - Normal': 2,
+            'ETT - Abnormal': 0,
+            'ETT - Borderline': 0,
+            'ETT - Normal': 0,
+            'NGT - Abnormal': 1,
+            'NGT - Borderline': 1,
+            'NGT - Incompletely Imaged': 1,
+            'NGT - Normal': 1,
+            'Swan Ganz Catheter Present': 2},
+  'df_annotations': PosixPath('../data/ranzcr-clip/train_annotations.csv'),
+  'grayscale': False,
+  'use_annotations': True,
+  'use_lungcontour': False}
+15:29:21 img_size: 768
+15:29:21 num_classes: 11
+15:29:21 transforms: 
+{ 'test': Compose([
+  Resize(always_apply=False, p=1, height=768, width=768, interpolation=1),
+  Normalize(always_apply=False, p=1.0, mean=0.4824, std=0.225, max_pixel_value=255.0),
+  ToTensorV2(always_apply=True, p=1.0),
+], p=1.0, bbox_params=None, keypoint_params=None, additional_targets={}),
+  'train': Compose([
+  RandomResizedCrop(always_apply=False, p=1, height=768, width=768, scale=(0.9, 1), ratio=(0.75, 1.3333333333333333), interpolation=1),
+  HorizontalFlip(always_apply=False, p=0.5),
+  ShiftScaleRotate(always_apply=False, p=0.5, shift_limit=(-0.0625, 0.0625), scale_limit=(-0.09999999999999998, 0.10000000000000009), rotate_limit=(-45, 45), interpolation=1, border_mode=4, value=None, mask_value=None),
+  HueSaturationValue(always_apply=False, p=0.5, hue_shift_limit=(-10, 10), sat_shift_limit=(-10, 10), val_shift_limit=(-10, 10)),
+  RandomBrightnessContrast(always_apply=False, p=0.5, brightness_limit=(-0.2, 0.2), contrast_limit=(-0.2, 0.2), brightness_by_max=True),
+  OneOf([
+    OpticalDistortion(always_apply=False, p=0.5, distort_limit=(-0.05, 0.05), shift_limit=(-0.05, 0.05), interpolation=1, border_mode=4, value=None, mask_value=None),
+    IAAPiecewiseAffine(always_apply=False, p=0.5, scale=(0.03, 0.05), nb_rows=4, nb_cols=4, order=1, cval=0, mode='constant'),
+  ], p=0.1),
+  OneOf([
+    GaussNoise(always_apply=False, p=0.5, var_limit=(10.0, 50.0)),
+    MotionBlur(always_apply=False, p=0.5, blur_limit=(3, 5)),
+  ], p=0.1),
+  Cutout(always_apply=False, p=0.5, num_holes=5, max_h_size=76, max_w_size=76),
+  Normalize(always_apply=False, p=1.0, mean=0.4824, std=0.225, max_pixel_value=255.0),
+  ToTensorV2(always_apply=True, p=1.0),
+], p=1.0, bbox_params=None, keypoint_params=None, additional_targets={}),
+  'tta': Compose([
+  Resize(always_apply=False, p=1, height=768, width=768, interpolation=1),
+  Normalize(always_apply=False, p=1.0, mean=0.4824, std=0.225, max_pixel_value=255.0),
+  ToTensorV2(always_apply=True, p=1.0),
+], p=1.0, bbox_params=None, keypoint_params=None, additional_targets={})}
+15:29:21 splitter: <utils.MultiStratifiedGroupKFold object at 0x7f7c4394f910>
+15:29:21 model: Unet(*)
+15:29:21 model_params: 
+{ 'activation': 'sigmoid',
+  'classes': 3,
+  'encoder_name': 'resnet200d',
+  'encoder_weights': 'imagenet',
+  'in_channels': 3}
+15:29:21 optimizer: Adam(*)
+15:29:21 optimizer_params: 
+{'lr': 0.0005}
+15:29:21 scheduler: CosineAnnealingWarmRestarts(*)
+15:29:21 scheduler_params: 
+{'T_0': 5, 'T_mult': 1, 'eta_min': 1e-06}
+15:29:21 batch_scheduler: False
+15:29:21 scheduler_target: None
+15:29:21 criterion: DiceLoss(
+  (activation): Activation(
+    (activation): Identity()
+  )
+)
+15:29:21 eval_metric: IoU(
+  (loss): IoU(
+    (activation): Activation(
+      (activation): Identity()
+    )
+  )
+)
+15:29:21 monitor_metrics: 
+[]
+15:29:21 amp: True
+15:29:21 parallel: ddp
+15:29:21 hook: <kuma_utils.torch.hooks.simple_hook.TrainHook object at 0x7f7c43987350>
+15:29:21 callbacks: 
+[ EarlyStopping(
+{ 'best_epoch': None,
+  'best_score': None,
+  'counter': 0,
+  'maximize': True,
+  'patience': 5,
+  'skip_epoch': 0,
+  'target': 'valid_metric'}),
+  SaveSnapshot]
+15:29:21 deterministic: True
+15:29:21 ===== CONFIGEND =====
+15:29:21 ===== FOLD0 =====
+15:29:21 train positive: [0.00316021 0.04740313 0.27466337 0.01112943 0.02390767 0.1085463
+ 0.20321517 0.12475955 0.29582303 0.69991756 0.01813685] (7278)
+15:29:21 valid positive: [0.0038525  0.04567969 0.2955421  0.01651073 0.0247661  0.12217942
+ 0.2096863  0.13648872 0.31150248 0.70280682 0.01375894] (1817)
+15:29:23 DDP URL :	tcp://127.0.0.1:48983
+15:29:23 session id :	dce2a7f1-46f0-49b3-84ce-7a6e7f09634e
+15:29:23 __main__ :	/home/hiroshi_yoshihara/kaggle/kaggle-ranzcr-clip-public/train.py
+15:29:27 All processes initialized.
+15:29:27 Mixed precision training on torch amp.
+15:29:27 DistributedDataParallel on devices [0, 1]
