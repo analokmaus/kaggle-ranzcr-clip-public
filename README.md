@@ -1,6 +1,6 @@
 # RANZCR-CLiP 7th Place Solution
 
-This repository is **WIP**. (18 Mar 2021)
+This repository is **WIP**. (28 Mar 2021)
 
 ![pipeline](https://pbs.twimg.com/media/EwqG7gdVcAEOmHS?format=jpg&name=large)
 
@@ -89,8 +89,10 @@ CV: 0.9671
 Public LB: 0.970  
 Private LB: 0.972  
 ```bash
-(run training script by Y.Nakama)
-python inference.py --config SingleModel02 # generate pseudo labels
+python nfnet_train/train_nfnet_f1_stage1.py
+python nfnet_train/train_nfnet_f1_stage23.py
+(move and rename weights by yourself)
+python inference.py --config SingleModel02
 python train_external.py --config Distillation03
 python train.py --config SingleModel02external0
 ```

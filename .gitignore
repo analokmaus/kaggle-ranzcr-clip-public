@@ -13,7 +13,6 @@ catboost_info/
 # Project
 checkpoints/
 results/*
-input/
 requirements/
 kaggle/
 logs/
